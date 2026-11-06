@@ -165,11 +165,11 @@
   document.querySelector("#expiry-filter")?.addEventListener("change", renderExpiry);
 
   document.querySelector("#download-smartstore-template")?.addEventListener("click", () => {
-    const sheet = XLSX.utils.aoa_to_sheet([["바코드", "전용수량", "거래처"], ["8800000000000", 1, reservationEngine.DEFAULT_VENDOR]]);
+    const sheet = XLSX.utils.aoa_to_sheet([["Barcode", "Reserved Quantity", "Customer"], ["8809911001001", 1, ""]]);
     sheet["!cols"] = [{ wch: 18 }, { wch: 12 }, { wch: 20 }];
     const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, sheet, "거래처별전용재고");
-    XLSX.writeFile(workbook, "거래처별_전용재고_등록양식.xlsx");
+    XLSX.utils.book_append_sheet(workbook, sheet, "Reserved Stock");
+    XLSX.writeFile(workbook, "reserved-stock-template.xlsx");
   });
 
   document.querySelector("#smartstore-file")?.addEventListener("change", async (event) => {

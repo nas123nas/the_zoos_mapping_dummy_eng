@@ -115,7 +115,11 @@
   }
 
   function parseReservationRows(rows, products) {
-    const normalizedHeader = (value) => clean(value).replace(/\s+/g, "");
+    const aliases = new Map([["barcode", "바코드"], ["reservedquantity", "전용수량"], ["customer", "거래처"]]);
+    const normalizedHeader = (value) => {
+      const key = clean(value).replace(/\s+/g, "");
+      return aliases.get(key.toLowerCase()) || key;
+    };
     const headerIndex = (rows || []).findIndex((row) => {
       const headers = (row || []).map(normalizedHeader);
       return headers.includes("바코드") && headers.includes("전용수량");
