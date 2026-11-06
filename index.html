@@ -1,0 +1,941 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>THE ZOOS Order Mapping Center</title>
+    <meta name="description" content="A THE ZOOS portfolio demo built with fictional data. Compare incoming orders with the product master, review mapping results, and track inbound shipments and stockouts." />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="THE ZOOS Order Mapping Center" />
+    <meta property="og:description" content="A workspace for order mapping, manual review, product master management, inbound scheduling, and stockout tracking." />
+    <meta property="og:type" content="website" />
+    <link rel="stylesheet" href="./styles.css?v=20261031-1" />
+    <style>
+      .brand{display:block!important;text-align:center;letter-spacing:0!important;width:100%;border:0;background:transparent;padding:0;cursor:pointer}.brand-logo{display:block;width:150px;max-width:100%;height:auto;margin:0 auto 16px}.file-mode{display:flex;align-items:center;gap:8px;margin:-6px 0 20px;font-size:12px;color:#6d7175}.file-mode span{margin-right:auto}.file-mode button{border:1px solid #e5e7e8;background:#fff;border-radius:6px;padding:7px 9px;color:#62676b;cursor:pointer;font-size:12px}.file-mode button.selected{border-color:#f47c00;background:#fff1e5;color:#c65b00;font-weight:700}.clickable-review{cursor:pointer}.clickable-review:focus{outline:2px solid #f47c00;outline-offset:2px}.history-actions{display:flex;gap:8px;flex-wrap:wrap}#review-items-body tr{cursor:pointer}.selected-row td{background:#fff8f1}td strong{display:block;font-weight:700}td small{display:block;margin-top:4px;color:#70767b;font-size:11px}.accuracy-bad{display:block;color:#c73c35;font-weight:800}.accuracy-good{display:block;color:#277d4e;font-weight:800}.interpretation{display:flex;gap:10px;align-items:center;margin:10px 0;padding:10px 12px;border:1px solid #f0d8bd;border-radius:7px;background:#fff;font-size:12px}.interpretation[hidden]{display:none}.interpretation span{color:#555b60}.correction{padding:22px;border-top:1px solid #e8e9ea;background:#fff8f1}.correction h3{margin-bottom:5px}.correction p{color:#6d7175;font-size:13px}.correction textarea,.bot-drawer textarea{width:100%;min-height:78px;resize:vertical;border:1px solid #dedfe1;border-radius:8px;padding:11px;font:inherit;font-size:13px}.correction-actions{display:flex;align-items:center;gap:10px;margin-top:10px}.confirm-check{margin-right:auto;font-size:12px;color:#555b60}.draft-list,.processed-list{display:grid;gap:6px;margin-top:14px}.draft-list div,.processed-item{display:flex;gap:10px;padding:9px 10px;background:#fff;border:1px solid #f0d8bd;border-radius:7px;font-size:12px}.draft-list span,.processed-item span{color:#666d72}.draft-list>span,.processed-list>span{font-size:12px;color:#777}.processed-results{margin-top:18px;padding-top:16px;border-top:1px solid #f0d8bd}.processed-item{align-items:center;justify-content:space-between}.processed-actions{display:flex;gap:6px;flex-wrap:wrap}.processed-actions button{border:1px solid #f47c00;background:#fff;color:#c65b00;border-radius:6px;padding:7px 9px;font-size:12px;font-weight:700;cursor:pointer}.bot-toggle{position:fixed;right:26px;top:24px;z-index:30;width:44px;height:44px;border:0;border-radius:50%;background:#f47c00;color:#fff;font-size:21px;font-weight:900;box-shadow:0 10px 24px #0002;cursor:pointer}.bot-drawer{position:fixed;right:26px;top:78px;z-index:31;width:min(390px,calc(100vw - 32px));max-height:calc(100vh - 104px);overflow:auto;padding:18px;background:#fff;border:1px solid #e8e9ea;border-radius:12px;box-shadow:0 18px 42px #0002;display:grid;gap:12px}.bot-drawer[hidden],.bot-settings[hidden],.admin-login[hidden],.admin-gate[hidden]{display:none}.bot-drawer-head{display:flex;align-items:start;justify-content:space-between;gap:12px}.bot-drawer-head h3{margin:0;font-size:20px}.bot-drawer-head button{border:0;background:#f7f7f6;border-radius:50%;width:30px;height:30px;cursor:pointer;font-size:18px}.bot-head-actions{display:flex;align-items:center;gap:8px}.bot-drawer-head .admin-access-button{width:auto;height:auto;border-radius:999px;background:#2f363d;color:#fff;padding:8px 12px;font-size:12px;font-weight:800;white-space:nowrap}.bot-drawer-head .admin-access-button:hover{background:#111820}.bot-prompts{display:grid;grid-template-columns:1fr;gap:7px}.bot-prompts button{border:1px solid #f0d8bd;background:#fff8f1;color:#c65b00;border-radius:8px;padding:9px 10px;text-align:left;font-weight:700;cursor:pointer}.admin-gate,.admin-login{display:grid;gap:8px}.admin-login{grid-template-columns:1fr auto}.admin-login input{border:1px solid #dedfe1;border-radius:8px;padding:10px;font:inherit;font-size:13px}.bot-settings{display:grid;grid-template-columns:1fr;gap:8px;padding:12px;border:1px solid #f0d8bd;border-radius:8px;background:#fff8f1}.bot-settings label{display:grid;gap:6px;color:#555b60;font-size:12px}.bot-settings input{border:1px solid #dedfe1;border-radius:8px;padding:10px;font:inherit;font-size:13px}.bot-answer{min-height:130px;padding:14px;border:1px solid #f0d8bd;border-radius:8px;background:#fff8f1;color:#3b4045;font-size:13px;line-height:1.7;white-space:pre-wrap}.admin-verification-card{display:grid;gap:10px;white-space:normal}.admin-verification-card h4{margin:0;font-size:18px}.admin-code-box{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px;border:1px solid #f0d8bd;border-radius:10px;background:#fff}.admin-code-box strong{font-size:24px;letter-spacing:2px;color:#f47c00}.admin-code-box button{border:0;border-radius:8px;background:#2f363d;color:#fff;padding:9px 12px;font-weight:800;cursor:pointer}.admin-verification-card small{color:#6d7175}.correction-status{margin:12px 0 0!important;color:#25744b!important;font-weight:700}.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:9999;display:flex;align-items:center;justify-content:center}.modal-overlay[hidden]{display:none}.modal-content{background:#fff;padding:28px 24px;border-radius:14px;width:340px;box-shadow:0 12px 40px rgba(0,0,0,0.2);text-align:center}.modal-content h3{margin-bottom:12px;color:#c73c35;font-size:20px}.modal-content p{color:#555;font-size:15px;margin-bottom:24px}@media(max-width:850px){.file-mode{flex-wrap:wrap}.file-mode span{width:100%}.correction-actions,.processed-item,.bot-settings{align-items:stretch;grid-template-columns:1fr;flex-direction:column}.confirm-check{margin-right:0}.correction-actions button,.processed-actions button,.history-actions button{width:100%}.bot-toggle{right:16px;top:16px}.bot-drawer{right:16px;top:68px}}
+    </style>
+  <link rel="stylesheet" href="./responsive-ui.css?v=20261105-1" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <button class="brand" type="button" data-page="dashboard"><img class="brand-logo" src="./assets/the-zoos-logo.png" alt="THE ZOOS logo" /></button>
+        <nav class="sidebar-nav" aria-label="Workspace navigation">
+          <div class="nav-menu-group">
+            <button class="nav-item nav-parent active" data-page="dashboard">Dashboard</button>
+            <button class="nav-item nav-child" type="button" data-dash-jump="coordination">Inbound Coordination</button>
+            <button class="nav-item nav-child" type="button" data-dash-jump="ops">Inventory Overview</button>
+          </div>
+          <div class="nav-menu-group">
+            <button class="nav-item nav-parent" data-page="mapping">Order Mapping</button>
+            <button class="nav-item nav-child" data-page="review">Mapping Review</button>
+            <button class="nav-item nav-child" data-page="learning">Learned Rules</button>
+            <button class="nav-item nav-child" data-page="master">Product Master</button>
+            <button class="nav-item nav-child" data-page="history">Activity History</button>
+          </div>
+          <div class="nav-menu-group">
+            <p class="nav-group-label">Inbound Planning</p>
+            <button class="nav-item nav-child" data-page="inbound">Upcoming Inbound</button>
+            <button class="nav-item nav-child" data-page="soldout">Stockouts</button>
+          </div>
+          <div class="nav-menu-group">
+            <p class="nav-group-label">Inventory Tools</p>
+            <button class="nav-item nav-child" data-page="smartstore">Customer-Reserved Stock</button>
+            <button class="nav-item nav-child" data-page="expiry">Expiry Management</button>
+          </div>
+          <section class="data-basis-card" aria-labelledby="data-basis-title">
+            <p class="data-basis-eyebrow">FILE DATA BASIS</p>
+            <strong id="data-basis-title">Source File Timestamps</strong>
+            <dl>
+              <div><dt>Domestic</dt><dd data-basis-time="domestic">Checking…</dd></div>
+              <div><dt>Imports</dt><dd data-basis-time="import">Checking…</dd></div>
+              <div><dt>On-hand Stock</dt><dd data-basis-time="stock">Checking…</dd></div>
+            </dl>
+            <small>Used to detect changes in source data</small>
+          </section>
+        </nav>
+      </aside>
+      <main>
+        <header><div><p class="eyebrow">ORDER MAPPING CENTER</p><h1>Order Mapping and Inventory</h1></div></header>
+
+        <section id="dashboard" class="page active">
+          <div class="page-heading inventory-dashboard-heading">
+            <div>
+              <p class="eyebrow">INVENTORY FORECAST</p>
+              <h2>Dashboard</h2>
+              <p>See inbound coordination and inventory at a glance. Scroll the tables horizontally to see all columns.</p>
+            </div>
+            <div class="history-actions">
+              <button class="secondary" type="button" onclick="document.querySelector('[data-page=soldout]').click()">Stockout List</button>
+              <button class="primary" type="button" onclick="document.querySelector('[data-page=inbound]').click()">View Inbound Schedule</button>
+            </div>
+          </div>
+          <p id="inventory-dashboard-status" class="inventory-dashboard-status">Analyzing inventory…</p>
+          <form id="inventory-main-search-form" class="inventory-main-search-form" data-inventory-main-search role="search">
+            <div><strong>Product Search</strong><span>Search all products across statuses and categories.</span></div>
+            <label><span class="sr-only">Product search query</span>
+              <input id="inventory-main-search-input" type="search" placeholder="Enter a product name or barcode" autocomplete="off" />
+              <button type="submit" aria-label="Search all products">🔍</button>
+            </label>
+          </form>
+          <section id="inventory-main-search-panel" class="panel inventory-main-search-panel" aria-live="polite" hidden>
+            <div class="section-title">
+              <div><p class="eyebrow">MAIN PRODUCT SEARCH</p><h3 id="inventory-main-search-title">Product Search Results</h3></div>
+              <div class="inventory-main-search-actions">
+                <span id="inventory-main-search-count" class="tag orange">0 products</span>
+                <button type="button" class="inventory-main-search-clear" data-inventory-main-search-clear aria-label="Close search results">×</button>
+              </div>
+            </div>
+            <p class="inventory-panel-description">Search results include the full catalog across statuses and categories.</p>
+            <div class="inventory-table-wrap h-scroll-wrap">
+              <table>
+                <thead><tr><th>Product Name</th><th>On-hand Stock</th><th>Avg. Daily Depletion</th><th>Next Inbound Date</th><th>Status</th></tr></thead>
+                <tbody id="inventory-main-search-body"><tr><td colspan="5" class="inventory-empty">Search by product name or barcode.</td></tr></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="inventory-detail-panel" class="inventory-detail-panel" hidden></section>
+
+          <!-- 3. Inbound coordination -->
+
+          <div hidden aria-hidden="true">
+            <b id="dashboard-pressure-count">0</b>
+            <b id="dashboard-arrival-risk-count">0</b>
+            <b id="dashboard-deadstock-count">0</b>
+            <span id="dashboard-pressure-list-count"></span>
+            <span id="dashboard-arrival-list-count"></span>
+            <span id="dashboard-deadstock-list-count"></span>
+            <div id="dashboard-pressure-category-filters"></div>
+            <div id="dashboard-arrival-category-filters"></div>
+            <div id="dashboard-deadstock-category-filters"></div>
+            <div id="dashboard-pressure-card-categories"></div>
+            <div id="dashboard-arrival-card-categories"></div>
+            <div id="dashboard-deadstock-card-categories"></div>
+            <tbody id="dashboard-risk-body"></tbody>
+            <tbody id="dashboard-arrival-body"></tbody>
+            <tbody id="dashboard-deadstock-body"></tbody>
+            <section id="dashboard-pressure-panel" hidden></section>
+            <section id="dashboard-arrival-panel" hidden></section>
+            <section id="dashboard-deadstock-panel" hidden></section>
+            <p id="dashboard-deadstock-development"></p>
+            <input id="dashboard-pressure-search" />
+            <input id="dashboard-arrival-search" />
+            <input id="dashboard-deadstock-search" />
+          </div>
+
+          <section id="dash-sec-coordination" class="dash-scroll-section panel dash-coord-panel" data-dash-section="coordination" style="margin-top:20px">
+            <div class="section-title dash-coord-head">
+              <div>
+                <p class="eyebrow">COORDINATION BOARD</p>
+                <h3>Inbound Coordination</h3>
+              </div>
+              <div class="dash-coord-actions">
+                <button type="button" class="secondary dash-btn-center" id="dash-coord-refresh">Refresh</button>
+                <button type="button" class="primary dash-btn-center" onclick="document.querySelector('[data-page=coordination]')?.click()">Open Full View</button>
+              </div>
+            </div>
+            <p class="inventory-panel-description">Use the status cards to filter the list. Select a row to edit the coordination record.</p>
+
+            <div class="dash-kpi-row dash-coord-summary" style="grid-template-columns:repeat(3,minmax(0,1fr));margin-top:12px">
+              <button type="button" class="dash-kpi-card is-active" data-coord-filter="회신대기">
+                <span class="dash-kpi-icon kpi-sky" aria-hidden="true">💬</span>
+                <span class="dash-kpi-label">Awaiting Reply</span>
+                <strong class="dash-kpi-value" id="dash-coord-waiting">-</strong>
+                <small class="dash-kpi-sub">Waiting for the supplier</small>
+              </button>
+              <button type="button" class="dash-kpi-card" data-coord-filter="업체조율확정">
+                <span class="dash-kpi-icon kpi-orange" aria-hidden="true">🤝</span>
+                <span class="dash-kpi-label">Supplier Confirmed</span>
+                <strong class="dash-kpi-value" id="dash-coord-confirmed">-</strong>
+                <small class="dash-kpi-sub">Schedule agreed</small>
+              </button>
+              <button type="button" class="dash-kpi-card" data-coord-filter="입고완료">
+                <span class="dash-kpi-icon kpi-green" aria-hidden="true">✅</span>
+                <span class="dash-kpi-label">Received</span>
+                <strong class="dash-kpi-value" id="dash-coord-done">-</strong>
+                <small class="dash-kpi-sub">Receipt recorded</small>
+              </button>
+            </div>
+
+            <div class="dash-coord-list-wrap" style="margin-top:16px">
+              <div class="section-title" style="margin-bottom:8px">
+                <div><p class="eyebrow">DETAIL</p><h3 style="font-size:16px;margin:0">Detailed List</h3></div>
+                <span id="dash-coord-list-count" class="tag">0 records</span>
+              </div>
+              <div class="inventory-table-wrap h-scroll-wrap">
+                <table class="dash-coord-table">
+                  <thead>
+                    <tr>
+                      <th>Request Date</th>
+                      <th>Product</th>
+                      <th>Supplier</th>
+                      <th>Request</th>
+                      <th>Reply</th>
+                      <th>Confirmed Date</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="dash-coord-list-body">
+                    <tr><td colspan="7" class="inventory-empty">Loading…</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+<!-- 4. Inventory overview -->
+          <section id="dash-sec-ops" class="dash-scroll-section panel" data-dash-section="ops" style="margin-top:20px">
+            <div class="section-title dash-coord-head">
+              <div>
+                <p class="eyebrow">SKU STOCK GRID</p>
+                <h3>Inventory Overview</h3>
+              </div>
+              <div class="dash-coord-actions">
+                <button type="button" class="secondary dash-btn-center" id="dash-ops-refresh">Refresh</button>
+                <button type="button" class="primary dash-btn-center" id="dash-ops-open">Open Full View</button>
+              </div>
+            </div>
+            <p class="inventory-panel-description">Summary above, SKU details below. Main warehouse shortages appear in red. Select a row to open the full inventory view.</p>
+
+            <div class="dash-kpi-row" role="toolbar" aria-label="Inventory summary filters">
+              <button type="button" class="dash-kpi-card is-active" data-ops-filter="all" aria-pressed="true">
+                <span class="dash-kpi-icon kpi-blue" aria-hidden="true">📦</span>
+                <span class="dash-kpi-label">Total On-hand</span>
+                <strong class="dash-kpi-value" id="dash-ops-sku">-</strong>
+                <small class="dash-kpi-sub" id="dash-ops-sku-sub">SKUs tracked</small>
+              </button>
+              <button type="button" class="dash-kpi-card" data-ops-filter="risk" aria-pressed="false">
+                <span class="dash-kpi-icon kpi-red" aria-hidden="true">⚠️</span>
+                <span class="dash-kpi-label">Shortage Qty.</span>
+                <strong class="dash-kpi-value risk" id="dash-ops-risk">-</strong>
+                <small class="dash-kpi-sub">Main stock below demand</small>
+              </button>
+              <button type="button" class="dash-kpi-card" data-ops-filter="pending" aria-pressed="false">
+                <span class="dash-kpi-icon kpi-sky" aria-hidden="true">🚚</span>
+                <span class="dash-kpi-label">Pending Shipments</span>
+                <strong class="dash-kpi-value" id="dash-ops-pending">-</strong>
+                <small class="dash-kpi-sub">Total demand</small>
+              </button>
+              <button type="button" class="dash-kpi-card" data-ops-filter="retailDone" aria-pressed="false">
+                <span class="dash-kpi-icon kpi-green" aria-hidden="true">📮</span>
+                <span class="dash-kpi-label">Courier Shipped</span>
+                <strong class="dash-kpi-value" id="dash-ops-retail-done">-</strong>
+                <small class="dash-kpi-sub">Smartstore shipments</small>
+              </button>
+            </div>
+
+            <div class="dash-ops-list-tools">
+              <label class="dash-ops-check">
+                <input type="checkbox" id="dash-ops-minus-only" />
+                Negative projected stock only
+              </label>
+              <span id="dash-ops-list-count" class="tag">0 records</span>
+            </div>
+
+
+            <div style="margin-top:16px">
+              <div class="section-title" style="margin-bottom:8px">
+                <div><p class="eyebrow">DETAIL</p><h3 style="font-size:16px;margin:0">SKU Details</h3></div>
+              </div>
+              <div class="inventory-table-wrap h-scroll-wrap">
+                <table class="dash-coord-table">
+                  <thead>
+                    <tr>
+                      <th><button type="button" class="th-sort" data-ops-sort="productName">Product Name</button></th>
+                      <th><button type="button" class="th-sort" data-ops-sort="demand">Pending Shipments</button></th>
+                      <th><button type="button" class="th-sort" data-ops-sort="retailDoneQty">Courier Shipped Qty.</button></th>
+                      <th><button type="button" class="th-sort" data-ops-sort="stockTotal">Total On-hand</button></th>
+                      <th><button type="button" class="th-sort" data-ops-sort="stockMain">Main Warehouse Stock</button></th>
+                      <th><button type="button" class="th-sort" data-ops-sort="stockOther">Other Warehouse Stock</button></th>
+                      <th><button type="button" class="th-sort" data-ops-sort="afterShip">Projected Stock After Shipping</button></th>
+                      <th><button type="button" class="th-sort" data-ops-sort="inboundDate">Expected Inbound Date</button></th>
+                      <th><button type="button" class="th-sort" data-ops-sort="inboundQty">Expected Inbound Qty.</button></th>
+                    </tr>
+                  </thead>
+                  <tbody id="dash-ops-list-body">
+                    <tr><td colspan="8" class="inventory-empty">Loading…</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+<p class="inventory-method-note">This site uses demo data.</p>
+          <style>
+            .dash-scroll-section { scroll-margin-top: 24px; margin-top: 28px; }
+            .nav-item.nav-child.dash-active { background: #fff1e5; color: #c65b00; font-weight: 700; }
+
+            .dash-coord-head { align-items: center; }
+            .dash-coord-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+            .dash-btn-center {
+              display: inline-flex !important;
+              align-items: center !important;
+              justify-content: center !important;
+              text-align: center !important;
+              min-height: 40px;
+              padding: 0 16px !important;
+              line-height: 1 !important;
+            }
+            .dash-coord-table th, .dash-coord-table td { font-size: 12.5px; vertical-align: top; }
+            .dash-coord-table tbody tr { cursor: pointer; }
+            .dash-coord-table tbody tr:hover td { background: #fff8f1; }
+            /* ops on dash */
+            .ops-stock-risk, .ops-stock-risk strong { color: #c73c35 !important; font-weight: 800; }
+            .ops-row-risk td { background: #fff8f6; }
+            .h-scroll-wrap {
+              overflow-x: auto;
+              -webkit-overflow-scrolling: touch;
+              overscroll-behavior-x: contain;
+              max-width: 100%;
+            }
+            .h-scroll-wrap table {
+              width: 100%;
+              min-width: 720px;
+              max-width: none;
+            }
+            .page#dashboard .h-scroll-wrap table {
+              min-width: 100%;
+            }
+            tr[data-dash-ops-sku] { cursor: pointer; }
+            .dash-ops-filter-card {
+              display: flex;
+              flex-direction: column;
+              align-items: flex-start;
+              gap: 4px;
+              text-align: left;
+              cursor: pointer;
+              border: 1px solid #e8edf3;
+              background: #fff;
+              font: inherit;
+              width: 100%;
+              transition: box-shadow .15s, border-color .15s, transform .12s;
+            }
+            .dash-ops-filter-card:hover { border-color: #fdba74; box-shadow: 0 4px 14px rgba(234,88,12,.08); }
+            .dash-ops-filter-card.is-active {
+              border-color: #ea580c;
+              box-shadow: 0 0 0 2px rgba(234,88,12,.18);
+            }
+            .dash-ops-icon { font-size: 22px; line-height: 1; margin-bottom: 2px; }
+            .dash-kpi-row {
+              display: grid;
+              grid-template-columns: repeat(4, minmax(0, 1fr));
+              gap: 12px;
+              margin-top: 12px;
+            }
+            .dash-kpi-card {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              text-align: center;
+              gap: 4px;
+              padding: 16px 12px;
+              border-radius: 16px;
+              border: 1px solid #e8edf3;
+              background: #fff;
+              cursor: pointer;
+              font: inherit;
+              transition: border-color .15s, box-shadow .15s;
+            }
+            .dash-kpi-card:hover { border-color: #93c5fd; box-shadow: 0 4px 14px rgba(37,99,235,.08); }
+            .dash-kpi-card.is-active { border-color: #3b82f6; box-shadow: 0 0 0 2px rgba(59,130,246,.18); }
+            .dash-kpi-icon {
+              width: 40px; height: 40px; border-radius: 12px;
+              display: flex; align-items: center; justify-content: center;
+              font-size: 20px; margin-bottom: 4px;
+            }
+            .kpi-blue { background: #eff6ff; }
+            .kpi-red { background: #fff1f2; }
+            .kpi-sky { background: #f0f9ff; }
+            .kpi-green { background: #ecfdf5; }
+            .dash-kpi-label { font-size: 12px; font-weight: 700; color: #64748b; }
+            .dash-kpi-value { font-size: 26px; font-weight: 800; color: #0f172a; line-height: 1.15; }
+            .dash-kpi-value.risk { color: #e11d48; }
+            .dash-kpi-sub { font-size: 11px; color: #94a3b8; }
+
+            /* bot choices */
+            .bot-choice-list { display:grid; gap:8px; margin:10px 0; }
+            .bot-choice-btn, .bot-back-btn {
+              width:100%; text-align:left; border:1px solid #f0d8bd; background:#fff8f1; color:#c65b00;
+              border-radius:10px; padding:10px 12px; font:inherit; font-size:13px; font-weight:700; cursor:pointer;
+            }
+            .bot-choice-btn:hover, .bot-back-btn:hover { background:#ffedd5; }
+            .bot-back-btn { background:#fff; color:#475569; border-color:#e2e8f0; margin-top:6px; width:auto; display:inline-block; margin-right:6px; }
+            .bot-hint { font-size:12px; color:#64748b; margin:6px 0 10px; }
+            .bot-detail-list { margin:8px 0 8px 18px; font-size:13px; color:#334155; }
+            .bot-detail-list li { margin-bottom:6px; }
+            /* data-basis-compact */
+            .data-basis-editor { display: grid; gap: 8px; margin-top: 10px; }
+            .data-basis-editor label {
+              display: grid; grid-template-columns: 42px 1fr; align-items: center; gap: 8px;
+              font-size: 12px; font-weight: 700; color: #64748b;
+            }
+            .data-basis-input-row { display: flex; align-items: center; gap: 6px; min-width: 0; }
+            .data-basis-editor input[type="datetime-local"] {
+              width: 11.5rem; max-width: 100%; min-width: 0;
+              padding: 6px 8px; font-size: 12px; border: 1px solid #e2e8f0; border-radius: 8px;
+              background: #fff; color: #0f172a;
+            }
+            .data-basis-editor .compact-button { padding: 6px 10px; font-size: 12px; white-space: nowrap; }
+            .data-basis-editor-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+            .data-basis-card { max-width: 100%; overflow: hidden; }
+
+            /* column resize */
+            table.resizable-cols { table-layout: fixed; width: 100%; }
+            table.resizable-cols th { position: relative; overflow: hidden; text-overflow: ellipsis; }
+            table.resizable-cols th .col-resizer {
+              position: absolute; right: 0; top: 0; width: 6px; height: 100%;
+              cursor: col-resize; user-select: none; touch-action: none;
+            }
+            table.resizable-cols th .col-resizer:hover { background: rgba(234,88,12,.25); }
+            /* page-visibility-fix */
+            main > .page { display: none !important; }
+            main > .page.active { display: block !important; }
+            #dash-sec-coordination, #dash-sec-ops { display: block; width: 100%; }
+            .page#dashboard .panel,
+            .page#dashboard .dash-scroll-section.panel {
+              border-radius: 18px;
+              border: 1px solid #e8edf3;
+              background: #fff;
+              box-shadow: 0 1px 2px rgba(15,23,42,.04);
+              padding: 20px 22px 18px;
+            }
+            .page#dashboard .section-title h3 { letter-spacing: -0.02em; }
+            .page#dashboard .inventory-panel-description { margin-top: 4px; margin-bottom: 4px; }
+            .kpi-orange { background: #fff7ed; }
+            /* Fill available table width */
+            .page#dashboard .h-scroll-wrap {
+              width: 100%;
+              overflow-x: auto;
+            }
+            .page#dashboard .h-scroll-wrap table,
+            .page#dashboard .dash-coord-table,
+            .page#dashboard table {
+              width: 100% !important;
+              min-width: 100% !important;
+              max-width: none;
+              table-layout: auto;
+            }
+            .page#dashboard .dash-coord-table th,
+            .page#dashboard .dash-coord-table td {
+              white-space: nowrap;
+            }
+            .page#dashboard .dash-coord-table td:nth-child(1),
+            .page#dashboard .dash-coord-table td:nth-child(2),
+            .page#dashboard .dash-coord-table th:nth-child(1),
+            .page#dashboard .dash-coord-table th:nth-child(2) {
+              white-space: normal;
+            }
+            .page#dashboard .dash-kpi-row { margin-bottom: 4px; }
+            .page#dashboard .dash-ops-list-tools { margin-top: 16px; }
+            .page#ops .h-scroll-wrap { width: 100%; overflow-x: auto; }
+            .page#ops .h-scroll-wrap table,
+            .page#ops .ops-sku-grid {
+              width: 100% !important;
+              min-width: 100% !important;
+            }
+
+            .dash-ops-list-tools {
+              display: flex; align-items: center; justify-content: space-between;
+              gap: 12px; flex-wrap: wrap; margin: 14px 0 8px;
+            }
+            .dash-ops-check { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #475569; font-weight: 600; }
+            .th-sort {
+              border: 0; background: transparent; font: inherit; font-weight: 700;
+              color: inherit; cursor: pointer; padding: 0; display: inline-flex; align-items: center; gap: 4px;
+            }
+            .th-sort::after { content: "↕"; font-size: 10px; opacity: .45; }
+            .th-sort.is-asc::after { content: "↑"; opacity: 1; }
+            .th-sort.is-desc::after { content: "↓"; opacity: 1; }
+            @media (max-width: 900px) {
+              .dash-kpi-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            }
+            .dash-ops-filter-card > span:not(.dash-ops-icon) { font-size: 12px; color: #64748b; font-weight: 600; }
+            .dash-ops-filter-card > b { font-size: 28px; line-height: 1.1; color: #0f172a; }
+            .dash-ops-filter-card.danger > b { color: #c73c35; }
+            .dash-ops-filter-card.warning > b { color: #c65b00; }
+            .dash-ops-filter-card > small { font-size: 11px; color: #94a3b8; }
+
+          </style>
+        </section>
+
+        <section id="ops" class="page">
+          <div class="page-heading inventory-dashboard-heading">
+            <div>
+              <p class="eyebrow">SKU · WAREHOUSE · WHOLESALE · COURIER</p>
+              <h2>Inventory Overview</h2>
+              <p>View stock by warehouse zone, pending wholesale orders, courier shipments, and completed shipments by SKU.</p>
+            </div>
+            <div class="history-actions">
+              <button class="secondary" type="button" id="ops-force-demo-btn">Load Demo Data</button>
+              <button class="primary" type="button" id="ops-refresh-btn">Refresh</button>
+            </div>
+          </div>
+          <p id="ops-status" class="inventory-dashboard-status">Waiting</p>
+
+          <div class="dash-kpi-row ops-summary-cards">
+            <button type="button" class="dash-kpi-card is-active" data-ops-page-filter="all">
+              <span class="dash-kpi-icon kpi-blue">📦</span>
+              <span class="dash-kpi-label">Total On-hand</span>
+              <strong class="dash-kpi-value" id="ops-sum-stock">-</strong>
+              <small class="dash-kpi-sub" id="ops-sum-sku">SKUs tracked</small>
+            </button>
+            <button type="button" class="dash-kpi-card" data-ops-page-filter="risk">
+              <span class="dash-kpi-icon kpi-red">⚠️</span>
+              <span class="dash-kpi-label">Shortage Qty.</span>
+              <strong class="dash-kpi-value risk" id="ops-sum-risk">-</strong>
+              <small class="dash-kpi-sub">Main stock below demand</small>
+            </button>
+            <button type="button" class="dash-kpi-card" data-ops-page-filter="pending">
+              <span class="dash-kpi-icon kpi-sky">🚚</span>
+              <span class="dash-kpi-label">Pending Shipments</span>
+              <strong class="dash-kpi-value" id="ops-sum-wpend">-</strong>
+              <small class="dash-kpi-sub">Total demand</small>
+            </button>
+            <button type="button" class="dash-kpi-card" data-ops-page-filter="retailDone">
+              <span class="dash-kpi-icon kpi-green">📮</span>
+              <span class="dash-kpi-label">Courier Shipped</span>
+              <strong class="dash-kpi-value" id="ops-sum-retail">-</strong>
+              <small class="dash-kpi-sub">Smartstore shipments</small>
+            </button>
+          </div>
+          <div class="dash-ops-list-tools">
+            <label class="dash-ops-check"><input type="checkbox" id="ops-minus-only" /> Negative projected stock only</label>
+          </div>
+
+          <div class="ops-toolbar">
+            <div class="ops-tabs" role="tablist">
+              <button type="button" class="ops-tab ops-tab-active" data-ops-tab="grid">Combined View</button>
+              <button type="button" class="ops-tab" data-ops-tab="zone">Stock by Zone</button>
+              <button type="button" class="ops-tab" data-ops-tab="wholesale">Wholesale Shipments</button>
+              <button type="button" class="ops-tab" data-ops-tab="retail">Courier Shipments</button>
+            </div>
+            <input id="ops-sku-search" type="search" placeholder="Search by SKU, product, or supplier" class="ops-search" />
+          </div>
+
+          <!-- Combined inventory grid -->
+          <section class="panel ops-panel" data-ops-panel="grid">
+            <div class="section-title"><div><p class="eyebrow">INTEGRATED</p><h3>Combined SKU Inventory</h3></div></div>
+            <p class="inventory-panel-description">Compare pending shipments, total and warehouse stock, projected stock, and expected receipts. Shortages and negative projected stock appear in red.</p>
+            <div class="inventory-table-wrap h-scroll-wrap">
+              <table class="ops-sku-grid">
+                <thead>
+                  <tr>
+                    <th><button type="button" class="th-sort" data-ops-page-sort="productName">Product Name</button></th>
+                    <th><button type="button" class="th-sort" data-ops-page-sort="demand">Pending Shipments</button></th>
+                    <th><button type="button" class="th-sort" data-ops-page-sort="retailDoneQty">Courier Shipped Qty.</button></th>
+                    <th><button type="button" class="th-sort" data-ops-page-sort="stockTotal">Total On-hand</button></th>
+                    <th><button type="button" class="th-sort" data-ops-page-sort="stockMain">Main Warehouse Stock</button></th>
+                    <th><button type="button" class="th-sort" data-ops-page-sort="stockOther">Other Warehouse Stock</button></th>
+                    <th><button type="button" class="th-sort" data-ops-page-sort="afterShip">Projected Stock After Shipping</button></th>
+                    <th><button type="button" class="th-sort" data-ops-page-sort="inboundDate">Expected Inbound Date</button></th>
+                    <th><button type="button" class="th-sort" data-ops-page-sort="inboundQty">Expected Inbound Qty.</button></th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="ops-sku-grid-body"><tr><td colspan="9">Loading…</td></tr></tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- Stock by warehouse zone -->
+          <section class="panel ops-panel" data-ops-panel="zone" hidden>
+            <div class="section-title"><div><p class="eyebrow">BY WAREHOUSE ZONE</p><h3>SKU Stock by Warehouse Zone</h3></div></div>
+            <p class="inventory-panel-description">Stock by SKU and warehouse zone. Main warehouse shortages appear in red.</p>
+            <div class="inventory-table-wrap h-scroll-wrap">
+              <table class="ops-sku-grid">
+                <thead id="ops-zone-head"></thead>
+                <tbody id="ops-zone-body"><tr><td colspan="10">Loading…</td></tr></tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- Wholesale shipments -->
+          <section class="panel ops-panel" data-ops-panel="wholesale" hidden>
+            <div class="section-title"><div><p class="eyebrow">WHOLESALE</p><h3>Pending Wholesale Shipments</h3></div></div>
+            <p class="inventory-panel-description">See which items are awaiting dispatch for each wholesale customer.</p>
+            <div class="inventory-table-wrap h-scroll-wrap">
+              <table>
+                <thead>
+                  <tr><th>Order No.</th><th>Item</th><th>Wholesale Customer</th><th>Qty.</th><th>Dispatch Warehouse</th><th>Status</th><th>Request Time</th></tr>
+                </thead>
+                <tbody id="ops-wholesale-body"><tr><td colspan="7">Loading…</td></tr></tbody>
+              </table>
+            </div>
+            <div class="section-title" style="margin-top:20px"><div><p class="eyebrow">SHIPPED</p><h3>Completed Wholesale Shipments</h3></div></div>
+            <div class="inventory-table-wrap h-scroll-wrap">
+              <table>
+                <thead>
+                  <tr><th>Order No.</th><th>Item</th><th>Wholesale Customer</th><th>Qty.</th><th>Dispatch Warehouse</th><th>Status</th><th>Dispatch Time</th></tr>
+                </thead>
+                <tbody id="ops-wholesale-done-body"><tr><td colspan="7">Loading…</td></tr></tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- Courier shipments -->
+          <section class="panel ops-panel" data-ops-panel="retail" hidden>
+            <div class="section-title"><div><p class="eyebrow">RETAIL COURIER</p><h3>Courier Shipment Status</h3></div></div>
+            <p class="inventory-panel-description">View the channel, courier, tracking number, and status for pending, in-transit, and delivered shipments.</p>
+            <div class="inventory-table-wrap h-scroll-wrap">
+              <table>
+                <thead>
+                  <tr><th>Order No.</th><th>Item</th><th>Qty.</th><th>Channel</th><th>Courier / Tracking</th><th>Status</th><th>Dispatch Time</th></tr>
+                </thead>
+                <tbody id="ops-retail-body"><tr><td colspan="7">Loading…</td></tr></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="ops-admin-api-panel" class="panel" style="margin-top:16px" hidden>
+            <div class="section-title"><div><p class="eyebrow">ADMIN · API KEYS</p><h3>Integration Settings (Admin)</h3></div></div>
+            <p class="inventory-panel-description">Save your ECOUNT, courier, and 3PL proxy URLs and keys to load live data in this view.</p>
+            <div style="display:grid;gap:14px;max-width:720px">
+              <label style="display:flex;align-items:center;gap:8px;font-size:13px"><input type="checkbox" id="ops-use-demo" checked /> Prefer Demo Data</label>
+              <fieldset style="border:1px solid #e5e7eb;border-radius:10px;padding:12px">
+                <legend style="font-size:12px;font-weight:700;color:#64748b">ECOUNT</legend>
+                <label style="display:flex;align-items:center;gap:8px;font-size:12px;margin-bottom:8px"><input type="checkbox" id="ops-ecount-enabled" /> Enable</label>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                  <label style="font-size:12px">ZONE<input id="ops-ecount-zone" style="display:block;width:100%;margin-top:4px;padding:8px;border:1px solid #e5e7eb;border-radius:8px" /></label>
+                  <label style="font-size:12px">Company Code<input id="ops-ecount-com" style="display:block;width:100%;margin-top:4px;padding:8px;border:1px solid #e5e7eb;border-radius:8px" /></label>
+                  <label style="font-size:12px">USER ID<input id="ops-ecount-user" style="display:block;width:100%;margin-top:4px;padding:8px;border:1px solid #e5e7eb;border-radius:8px" /></label>
+                  <label style="font-size:12px">API Key<input id="ops-ecount-key" type="password" style="display:block;width:100%;margin-top:4px;padding:8px;border:1px solid #e5e7eb;border-radius:8px" /></label>
+                </div>
+                <label style="font-size:12px;display:block;margin-top:8px">Proxy URL<input id="ops-ecount-proxy" style="display:block;width:100%;margin-top:4px;padding:8px;border:1px solid #e5e7eb;border-radius:8px" /></label>
+              </fieldset>
+              <fieldset style="border:1px solid #e5e7eb;border-radius:10px;padding:12px">
+                <legend style="font-size:12px;font-weight:700;color:#64748b">Courier</legend>
+                <label style="display:flex;align-items:center;gap:8px;font-size:12px;margin-bottom:8px"><input type="checkbox" id="ops-courier-enabled" /> Enable</label>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                  <label style="font-size:12px">Provider<input id="ops-courier-provider" style="display:block;width:100%;margin-top:4px;padding:8px;border:1px solid #e5e7eb;border-radius:8px" /></label>
+                  <label style="font-size:12px">API Key<input id="ops-courier-key" type="password" style="display:block;width:100%;margin-top:4px;padding:8px;border:1px solid #e5e7eb;border-radius:8px" /></label>
+                </div>
+                <label style="font-size:12px;display:block;margin-top:8px">Proxy URL<input id="ops-courier-proxy" style="display:block;width:100%;margin-top:4px;padding:8px;border:1px solid #e5e7eb;border-radius:8px" /></label>
+              </fieldset>
+              <fieldset style="border:1px solid #e5e7eb;border-radius:10px;padding:12px">
+                <legend style="font-size:12px;font-weight:700;color:#64748b">3PL</legend>
+                <label style="display:flex;align-items:center;gap:8px;font-size:12px;margin-bottom:8px"><input type="checkbox" id="ops-tpl-enabled" /> Enable</label>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                  <label style="font-size:12px">Provider<input id="ops-tpl-provider" style="display:block;width:100%;margin-top:4px;padding:8px;border:1px solid #e5e7eb;border-radius:8px" /></label>
+                  <label style="font-size:12px">API Key<input id="ops-tpl-key" type="password" style="display:block;width:100%;margin-top:4px;padding:8px;border:1px solid #e5e7eb;border-radius:8px" /></label>
+                </div>
+                <label style="font-size:12px;display:block;margin-top:8px">Proxy URL<input id="ops-tpl-proxy" style="display:block;width:100%;margin-top:4px;padding:8px;border:1px solid #e5e7eb;border-radius:8px" /></label>
+              </fieldset>
+              <button type="button" class="primary" id="ops-save-api-btn">Save API Settings</button>
+            </div>
+          </section>
+
+          <style>
+            .ops-summary-cards { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+            .ops-toolbar { display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between; margin: 16px 0 12px; }
+            .ops-tabs { display:flex; flex-wrap:wrap; gap:6px; background:#f8fafc; padding:4px; border-radius:12px; border:1px solid #eef2f7; }
+            .ops-tab { border:0; background:transparent; padding:8px 14px; border-radius:9px; font:inherit; font-size:13px; font-weight:600; color:#64748b; cursor:pointer; }
+            .ops-tab:hover { color:#0f172a; }
+            .ops-tab-active { background:#fff; color:#c65b00; box-shadow:0 1px 3px rgba(15,23,42,.08); }
+            .ops-search { padding:9px 12px; border:1px solid #e5e7eb; border-radius:10px; min-width:240px; font:inherit; font-size:13px; }
+            .ops-sku-grid th, .ops-sku-grid td { font-size:12.5px; vertical-align:top; }
+            .ops-sku-grid thead th { background:#f8fafc; white-space:nowrap; }
+            .ops-stock-risk, .ops-stock-risk strong, .ops-risk-text { color:#c73c35 !important; font-weight:800; }
+            .ops-row-risk td { background:#fff8f6; }
+            .ops-muted { color:#64748b; }
+            .ops-move-badge { display:inline-block; padding:3px 8px; border-radius:999px; font-size:11px; font-weight:700; }
+            .ops-move-badge.mov-need { background:#fee2e2; color:#991b1b; }
+            .ops-move-badge.mov-ordered { background:#fef3c7; color:#92400e; }
+            .ops-move-badge.mov-transit { background:#dbeafe; color:#1e40af; }
+            .ops-move-badge.mov-done { background:#d1fae5; color:#065f46; }
+            .ops-move-badge.mov-none { background:#f1f5f9; color:#64748b; }
+            .ops-pill { display:inline-block; padding:3px 8px; border-radius:999px; font-size:11px; font-weight:700; background:#f1f5f9; color:#475569; }
+            .ops-pill.wait { background:#fef3c7; color:#92400e; }
+            .ops-pill.move { background:#dbeafe; color:#1e40af; }
+            .ops-pill.ok { background:#d1fae5; color:#065f46; }
+            .ops-pill.risk { background:#fee2e2; color:#991b1b; }
+            .ops-action-btn { padding:6px 10px !important; font-size:12px !important; white-space:nowrap; }
+            .ops-action-idle { color:#94a3b8; }
+            @media (max-width: 900px) {
+              .ops-summary-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+              .ops-search { min-width: 100%; }
+            }
+          </style>
+        </section>
+
+        <section id="mapping" class="page"><div class="page-heading"><div><p class="eyebrow">01 · AUTOMATIC MAPPING</p><h2>Automatic Order Mapping</h2><p>The system detects and processes both legacy order and mapping review formats.</p></div><span class="fixed-pill">● Shared product master active</span></div><div class="two-column"><section class="panel upload"><h3>Upload Order File</h3><p>A sample order is ready to run. You can also select another order file.</p><label class="dropzone"><input id="order-file" type="file" accept=".xlsx,.xls,.csv" multiple /><strong>Select a File</strong><span id="order-file-name">demo-orders.csv</span></label><button id="start-mapping" class="primary full">Run Automatic Mapping</button><button id="download-demo-order" class="secondary full" type="button">Download Sample Order CSV</button></section><section class="panel side-summary"><p class="eyebrow">CURRENT MASTER</p><h3 id="fixed-master-name"></h3><p id="fixed-master-date"></p><hr /><b>Mapping Rules</b><ul><li>Sum minimum quantities for the same order number</li><li>Compare product name, flavor, volume, color, size, type, and options</li><li>Convert cases to individual units and verify quantities</li><li>Apply pack sizes and bundle quantities from matched product names</li><li>Check for missing bundle items and apply learned rules</li></ul></section></div><section id="mapping-result" class="panel result" hidden><div class="section-title"><h3>Mapping Results</h3><span class="tag green">View Details</span></div><table><thead><tr><th>Order No.</th><th>Order Item / Options</th><th>Catalog Product</th><th>Ordered Qty.</th><th>Mapped Qty.</th><th>Final Verdict</th><th>Review Notes</th></tr></thead><tbody id="mapping-preview-body"></tbody></table></section></section>
+
+        <section id="review" class="page"><div class="page-heading"><div><p class="eyebrow">02 · REVIEW</p><h2>Mapping Review</h2><p>Review order items flagged for manual correction.</p></div></div><section id="review-result" class="panel result"><div class="section-title"><h3>Items Requiring Review</h3><span class="tag red" id="review-count">0 records</span></div><table><thead><tr><th>Order No.</th><th>Order Details</th><th>Matched Product and Quantity</th><th>Review Notes</th><th>Corrected Product and Quantity</th><th>Apply Correction</th></tr></thead><tbody id="review-items-body"></tbody></table></section></section>
+
+        <section id="master" class="page"><div class="page-heading"><div><p class="eyebrow">MASTER DATA</p><h2>Product Master</h2><p>The active product master is used for future mapping runs.</p></div><span class="fixed-pill">● Shared reference data</span></div><div class="two-column"><section class="panel upload"><h3>Replace Product Master</h3><p>Upload one or more files. The last file becomes the active master.</p><label class="dropzone"><input id="master-file" type="file" accept=".xlsx,.xls,.csv" multiple /><strong>Select Product Master Files</strong><span id="master-file-name">No file selected</span></label><button id="fix-master" class="primary full">Set as Shared Master</button></section><section class="panel side-summary"><p class="eyebrow">CURRENT FIXED FILE</p><h3 id="fixed-master-name"></h3><p id="fixed-master-date"></p><hr /><b>Versioning Policy</b><ul><li>Previous files stay in version history</li><li>In-progress jobs retain their original master</li><li>New jobs use the updated master</li></ul></section></div><section class="panel result"><div class="section-title"><h3>Master File History</h3><div class="history-actions"><button class="secondary" data-master-export="original">Download Selected Product Catalog</button><button class="secondary" id="release-master">Deactivate Current Master</button><button class="secondary" id="delete-masters">Delete Selected</button></div></div><table><thead><tr><th>Select</th><th>File Name</th><th>Activated On</th><th>Status</th><th>Notes</th></tr></thead><tbody id="master-files-body"></tbody></table></section></section>
+
+
+        <section id="inbound" class="page"><div class="page-heading"><div><p class="eyebrow">INBOUND SCHEDULE</p><h2>Upcoming Inbound</h2><p>View expected receipts and expiry dates for the selected period using the sample schedule and container files.</p></div><div class="history-actions"><a class="secondary button-link" href="#inbound" data-portfolio-schedule>View Demo Schedule</a><button class="secondary" id="paste-inbound-data" type="button">Paste Data</button><button class="secondary" id="refresh-inbound" type="button">Refresh</button></div></div><section class="panel" style="padding:18px 24px"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><button class="secondary inbound-period-btn active" id="inbound-this-week" type="button">This Week</button><button class="secondary inbound-period-btn" id="inbound-next-week" type="button">Next Week</button><span style="color:#74787c;font-size:13px;margin:0 6px">|</span><label style="font-size:13px;color:#74787c">Custom Date Range</label><input type="date" id="inbound-date-from" style="padding:7px 10px;border:1px solid #e8e9ea;border-radius:7px;font-size:13px" /><span style="color:#74787c">~</span><input type="date" id="inbound-date-to" style="padding:7px 10px;border:1px solid #e8e9ea;border-radius:7px;font-size:13px" /><button class="primary" id="inbound-custom-range" type="button" style="padding:8px 14px;font-size:13px">Apply</button></div></section><section class="panel master-status"><div><p class="eyebrow" id="inbound-period-eyebrow">THIS WEEK</p><div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;"><h3 id="inbound-week-label" style="margin:0;">Calculating This Week’s Schedule…</h3><span id="inbound-holiday-label" style="background:#fff; color:#e53935; padding:2px 6px; border-radius:4px; font-weight:800; font-size:12px; display:none; border:1px solid #f0d8bd;"></span></div><p id="inbound-source-status">Loading demo data…</p></div><span class="tag green" id="inbound-count">0 records</span></section><section class="panel result"><div class="section-title"><h3>Inbound Details</h3><span class="tag orange">Full Dataset</span></div><table class="inbound-fit-table" data-fit-viewport="true" data-fit-weights="7,8,15,5,8,6,6,6,9,6,6,7,11,8"><thead><tr><th>Expected Inbound Date</th><th>Barcode</th><th>Product Name</th><th>On-hand Stock</th><th>Avg. Daily Depletion</th><th>Last Received Qty.</th><th>Expected Inbound Qty.</th><th>Inbound Type</th><th>Container / B/L</th><th>Manufactured On</th><th>Expiry Date</th><th>Inbound File</th><th>Memo</th><th>Confirmed-Date Notes</th></tr></thead><tbody id="weekly-inbound-body"><tr><td colspan="14">Loading data…</td></tr></tbody></table></section><section id="inbound-history-panel" class="inbound-history-panel" aria-live="polite" hidden></section></section>
+
+<section id="soldout" class="page"><div class="page-heading"><div><p class="eyebrow">SOLD OUT LIST</p><h2>Stockout List</h2><p>View products with a recorded stockout date or inventory at or below the selected threshold. Items with positive inventory are marked at risk.</p></div><div class="history-actions"><a class="secondary button-link" href="#inbound" data-portfolio-schedule>View Demo Schedule</a><button class="secondary" id="refresh-soldout" type="button">Refresh</button></div></div><section class="panel master-status soldout-summary"><div><p class="eyebrow">SOLD OUT</p><h3 id="soldout-label">Calculating Stockouts…</h3><p id="soldout-source-status">Loading demo data…</p></div><label class="soldout-threshold-control">Stock Threshold<select id="soldout-stock-threshold" aria-label="Maximum stock level for stockouts"><option value="0">0 or fewer</option><option value="100">100 or fewer</option><option value="200">200 or fewer</option><option value="300">300 or fewer</option><option value="400">400 or fewer</option><option value="500">500 or fewer</option><option value="600">600 or fewer</option><option value="700">700 or fewer</option><option value="800">800 or fewer</option><option value="900">900 or fewer</option><option value="1000">1,000 or fewer</option></select></label><span class="tag red" id="soldout-count">0 records</span></section><section class="panel result"><div class="section-title"><h3>Stockout Details</h3><span class="tag orange">Full Dataset</span></div><table class="soldout-fit-table" data-fit-viewport="true" data-fit-weights="9,17,5,8,10,9,6,9,6,10,11"><thead><tr><th>Barcode</th><th>Product Name</th><th>On-hand Stock</th><th>Avg. Daily Depletion</th><th>Status / Stockout Date</th><th>Last Receipt</th><th>Last Received Qty.</th><th>Next Receipt</th><th>Next Expected Qty.</th><th>Confirmed-Date Notes</th><th>Discontinued</th></tr></thead><tbody id="soldout-body"><tr><td colspan="11">Loading data…</td></tr></tbody></table></section><section id="soldout-history-panel" class="soldout-history-panel" aria-live="polite" hidden></section></section>
+
+        <section id="coordination" class="page">
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">INBOUND COORDINATION</p>
+              <h2>Inbound Coordination</h2>
+              <p>Record schedule changes and urgent supplier requests. Confirmed dates appear in the inbound schedule notes. Receipts moved to earlier dates appear below.</p>
+            </div>
+            <div class="history-actions">
+              <button type="button" class="secondary" id="coord-export-btn">Export to Excel</button>
+              <button type="button" class="secondary" id="coord-import-btn">Import from Excel</button>
+              <button type="button" class="primary" id="coord-add-btn">+ Add Coordination Record</button>
+            </div>
+          </div>
+
+          <section class="panel">
+            <div class="section-title">
+              <div>
+                <h3>Coordination Records</h3>
+                <p class="inventory-panel-description" style="margin:4px 0 0">Track each request from supplier reply through confirmation.</p>
+              </div>
+              <span class="tag orange" id="coord-count">0 records</span>
+            </div>
+            <div class="inventory-panel-controls" style="margin-bottom:12px;padding:0 22px 8px;display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+              <form class="inventory-search-form" id="coord-search-form" role="search" style="display:flex;gap:6px">
+                <input id="coord-search" type="search" placeholder="Search by product, barcode, or supplier" aria-label="Search coordination records" />
+                <button type="submit" aria-label="Search">🔍</button>
+              </form>
+              <label style="font-size:12px;display:flex;align-items:center;gap:6px">
+                <input type="checkbox" id="coord-pending-only" /> Awaiting Reply or Confirmation Only
+              </label>
+            </div>
+            <div class="inventory-table-wrap h-scroll-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Request Date</th>
+                    <th>Product / Barcode</th>
+                    <th>Supplier</th>
+                    <th>Request</th>
+                    <th>Reply</th>
+                    <th>Confirmed Inbound Date</th>
+                    <th>Type</th>
+                    <th>Memo</th>
+                    <th>Status</th>
+                    <th>Requested By</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="coord-body">
+                  <tr><td colspan="9" class="inventory-empty">No coordination records yet. Select Add Coordination Record to create one.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="panel" style="margin-top:18px">
+            <div class="section-title">
+              <div>
+                <h3>Receipts Moved Earlier</h3>
+                <p class="inventory-panel-description" style="margin:4px 0 0">These receipts are confirmed for dates earlier than originally scheduled.</p>
+              </div>
+              <span class="tag green" id="advanced-count">0 records</span>
+            </div>
+            <div class="inventory-panel-controls" style="margin-bottom:12px;padding:0 22px 8px">
+              <form class="inventory-search-form" id="advanced-search-form" role="search" style="display:flex;gap:6px">
+                <input id="advanced-search" type="search" placeholder="Product name or barcode" aria-label="Search receipts moved earlier" />
+                <button type="submit" aria-label="Search">🔍</button>
+              </form>
+            </div>
+            <div class="inventory-table-wrap h-scroll-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Product Name</th>
+                    <th>Barcode</th>
+                    <th>Original Expected Date</th>
+                    <th>Confirmed Date</th>
+                    <th>Days Earlier</th>
+                    <th>Supplier</th>
+                    <th>Latest Reply</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="advanced-body">
+                  <tr><td colspan="8" class="inventory-empty">No receipts have been moved earlier.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+          <input type="file" id="coord-file-input" accept=".xlsx,.xls,.csv" hidden />
+        </section>
+
+
+        <section id="smartstore" class="page"><div class="page-heading"><div><p class="eyebrow">SMARTSTORE RESERVED STOCK</p><h2>Customer-Reserved Stock</h2><p>Reserve units of on-hand stock by product code for dedicated customer shipments.</p></div><div class="history-actions"><button id="download-smartstore-template" class="secondary" type="button">Download Template</button><label class="secondary button-link file-button">Upload File<input id="smartstore-file" type="file" accept=".xlsx,.xls" hidden /></label></div></div><section class="panel tool-form-panel"><form id="smartstore-form" class="inventory-tool-form"><label>Product Code<input id="smartstore-product-code" required placeholder="Product code or barcode" /></label><label>Reserved Qty.<input id="smartstore-quantity" type="number" min="1" step="1" required /></label><button class="primary" type="submit">Reserve Stock</button></form><p id="smartstore-file-status" class="form-help">Use the downloaded template. All rows must be valid before any reservations are saved.</p></section><section class="panel result"><div class="section-title"><h3>Customer-Reserved Stock List</h3><span id="smartstore-count" class="tag blue">0 records</span></div><table><thead><tr><th>Product Code</th><th>Product Name</th><th>Total On-hand</th><th>Available for General Sale</th><th>Reserved for Smartstore</th><th>Status</th><th>Actions</th></tr></thead><tbody id="smartstore-body"><tr><td colspan="7">No reserved stock has been recorded.</td></tr></tbody></table></section></section>
+
+        <section id="expiry" class="page"><div class="page-heading"><div><p class="eyebrow">EXPIRY FIFO</p><h2>Expiry Management</h2><p>Record incoming lots and track remaining stock using first-in, first-out (FIFO), starting with lots that have no expiry date.</p></div></div><section class="panel tool-form-panel"><h3>Record an Inbound Lot</h3><form id="expiry-manual-form" class="inventory-tool-form expiry-form"><label>Receipt Date<input id="expiry-inbound-date" type="date" required /></label><label>Barcode<input id="expiry-barcode" required /></label><label>Received Qty.<input id="expiry-quantity" type="number" min="1" step="1" required /></label><label>Manufactured On<input id="expiry-manufactured-date" type="date" /></label><label>Expiry Date<input id="expiry-date" type="date" /></label><label>Notes<input id="expiry-note" /></label><button class="primary" type="submit">Add Lot</button></form><p class="form-help">Enter either a manufacturing or expiry date to calculate the other using the 18-month-minus-one-day rule. Both fields are optional.</p></section><section class="panel tool-form-panel"><h3>Upload Container Receipt Spreadsheet</h3><label class="dropzone"><input id="expiry-file" type="file" accept=".xlsx,.xls" /><strong>Select Excel File</strong><span id="expiry-file-name">No file selected</span></label><p class="form-help">Upload a spreadsheet containing barcode and quantity columns. You can enter manufacturing and expiry dates in bulk, or edit them in the table. Entering a manufacturing date calculates expiry using the 18-month-minus-one-day rule.</p></section><section class="panel result"><div class="section-title"><h3>On-hand Lots by Expiry Date</h3><span id="expiry-count" class="tag green">0 records</span></div><table><thead><tr><th>Receipt Date</th><th>Barcode</th><th>Product Name</th><th>Received Qty.</th><th>Manufactured On</th><th>Expiry Date</th><th>Notes</th><th>Source File</th><th>Actions</th></tr></thead><tbody id="expiry-body"><tr><td colspan="9">No inbound lots have been recorded.</td></tr></tbody></table></section></section>
+
+        <section id="history" class="page"><div class="page-heading"><div><p class="eyebrow">ACTIVITY</p><h2>Activity History</h2><p>Download mapping review details for the selected jobs.</p></div><div class="history-actions"><button class="secondary" data-history-export="googleSheets">Export Selected Reviews (CSV)</button><button class="secondary" data-history-export="excel">Export Selected Reviews (Excel)</button></div></div><section class="panel result"><table><thead><tr><th>Select</th><th>Job File</th><th>Product Master Used</th><th>Status</th><th>Run Time</th></tr></thead><tbody id="job-history"></tbody></table></section></section>
+
+        <section id="learning" class="page"><div class="page-heading"><div><p class="eyebrow">LEARNED DATA</p><h2>Learned Rules</h2><p>Review the mapping rules saved when a correction is approved.</p></div><div class="history-actions"><button class="secondary" id="clear-learning-btn" style="color:#c73c35; border-color:#c73c35;">Reset All</button></div></div><section class="panel result"><div class="section-title"><h3>Learned Mapping Rules</h3><span class="tag green" id="learning-total-count">0 records</span></div><table><thead><tr><th>Created On</th><th>Original Order Item</th><th>Options 1 / 2</th><th>Mapped Product</th><th>Applied Qty.</th></tr></thead><tbody id="learning-history-body"><tr><td colspan="5">No mapping rules have been learned.</td></tr></tbody></table></section></section>
+
+      </main>
+    </div><button id="bot-toggle" class="bot-toggle" type="button" aria-label="Open help assistant">?</button><aside id="bot-drawer" class="bot-drawer" hidden><div class="bot-drawer-head"><div><p class="eyebrow">HELP BOT</p><h3>How can I help?</h3></div><div class="bot-head-actions"><button id="admin-access-toggle" class="admin-access-button" type="button">Admin Access</button><button id="bot-close" type="button" aria-label="Close help assistant">×</button></div></div><div class="bot-prompts"><button type="button" data-bot-prompt="Find the barcode for Zoo Bites Chicken Soft Treats 150 g">Find Barcode by Product Name</button><button type="button" data-bot-prompt="8809911001001">Find Product by Barcode</button><button type="button" data-bot-prompt="What are the best-selling products?">Top Products by Customer</button><button type="button" data-bot-prompt="Next inbound for 8809911001001">Check Recent or Upcoming Receipts</button></div><div id="admin-gate" class="admin-gate" hidden><button id="admin-mode-toggle" class="secondary" type="button">Admin Mode</button><button id="forgot-admin-password" class="secondary" type="button">Recover Password</button><div id="admin-login" class="admin-login" hidden><input id="admin-password" type="password" placeholder="Admin Password" /><button id="admin-login-button" class="secondary" type="button">Confirm</button></div></div><div id="bot-admin-settings" class="bot-settings" hidden><label>Gemini API Key<input id="gemini-api-key" type="password" placeholder="Google AI Studio API Key" /></label><label>Model<input id="gemini-model" type="text" value="gemini-3.5-flash" /></label><button id="save-gemini-key" class="secondary">Save Key</button><div class="admin-security"><p class="eyebrow">ADMIN SECURITY</p><button id="request-password-change-code" class="secondary" type="button">Send Password Change Code</button><div class="admin-login"><input id="admin-change-code" type="text" placeholder="Verification Code" /><input id="new-admin-password" type="password" placeholder="New Password" /><button id="change-admin-password" class="secondary" type="button">Change Password</button></div></div></div><div id="password-recovery" class="bot-settings" hidden><p class="eyebrow">PASSWORD RECOVERY</p><p>This portfolio demo displays verification codes on screen.</p><div class="admin-login"><input id="recovery-code" type="text" placeholder="Verification Code" /><button id="verify-recovery-code" class="secondary" type="button">Verify Code</button></div></div><textarea id="bot-question" placeholder="Ask about stock, inbound receipts, or a customer’s top products. Use a product name or barcode to identify an item."></textarea><button id="ask-gemini" class="primary full">Ask</button><div id="bot-answer" class="bot-answer">Try asking about a product’s current stock, recent and upcoming receipts, or a customer’s top products. You can also look up a product by barcode.</div></aside>
+<div id="low-accuracy-modal" class="modal-overlay" hidden><div class="modal-content"><h3>Review Required</h3><p style="line-height: 1.6;">Total orders: <b id="total-parsed-count-low">0</b>. Successfully mapped: <b id="normal-count-low" style="color:#277d4e;">0</b>.<br>Orders requiring review: <b id="low-accuracy-count" style="color:#f47c00;font-size:18px;">0</b>.</p><div style="display:flex; gap:10px; margin-top:20px;"><button class="secondary full" type="button" onclick="this.closest('.modal-overlay').hidden = true">Close</button><button class="primary full" id="go-to-review-btn" type="button">Go to Mapping Review</button></div></div></div>
+<div id="mapping-complete-modal" class="modal-overlay" hidden><div class="modal-content"><h3>Mapping Complete</h3><p style="line-height: 1.6;"><b id="total-parsed-count-complete" style="color:#277d4e;font-size:18px;">0</b> orders were mapped successfully.<br>Download the Excel report now?</p><div style="display:flex; gap:10px; margin-top:20px;"><button class="secondary full" id="go-to-history-btn" type="button">Go to Activity History</button><button class="primary full" id="download-excel-now-btn" type="button">Download Excel Report</button></div></div></div>
+<div id="correction-confirm-modal" class="modal-overlay" hidden><div class="modal-content"><h3>Confirm Correction</h3><p>Does this correction look right?</p><div style="background:#f7f7f6; padding:15px; border-radius:8px; margin-bottom:20px; text-align:left;"><div style="margin-bottom:8px;"><span style="color:#74787c; font-size:12px;">Product Name</span><br/><strong id="correction-confirm-product"></strong></div><div><span style="color:#74787c; font-size:12px;">Qty.</span><br/><strong id="correction-confirm-qty"></strong> units</div></div><div style="display:flex; gap:10px;"><button class="secondary full" type="button" onclick="this.closest('.modal-overlay').hidden = true">Cancel</button><button class="primary full" id="correction-confirm-btn" type="button">Approve and Learn</button></div></div></div>
+<div id="toast" class="toast" role="status"></div>
+<div class="modal-overlay" id="paste-data-modal" hidden>
+  <div class="modal-content" style="width: 600px; text-align: left;">
+    <h3 style="color: var(--ink); margin-bottom: 8px;">Update Inbound Schedule</h3>
+    <p style="font-size: 13px; margin-bottom: 12px; color: var(--muted);">Paste inbound schedule data or attach a container receipt spreadsheet. The system uses manufacturing dates to calculate expiry.</p>
+    <textarea id="paste-data-textarea" rows="10" style="width: 100%; border: 1px solid var(--line); border-radius: 8px; padding: 10px; font-size: 12px; font-family: monospace;" placeholder="Paste a table with barcode, product name, and expected inbound date headers."></textarea>
+    <label class="dropzone" data-file-dropzone="inbound-update" style="min-height:auto;margin-top:12px;padding:14px;"><input id="inbound-update-file" type="file" accept=".xlsx,.xls,.csv" /><strong>Attach Inbound, Stockout, or Container Spreadsheet</strong><span>Click to browse or drag and drop a file here</span><span id="inbound-update-file-name">No file selected</span></label>
+    <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 16px;">
+      <button class="secondary" id="close-paste-modal" type="button" style="padding: 8px 16px;">Cancel</button>
+      <button class="primary" id="apply-paste-data" type="button" style="padding: 8px 16px;">Apply</button>
+    </div>
+  </div>
+</div>
+<script src="./english-localization.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="./portfolio-data.js?v=20261106-qa-2"></script>
+    <script src="./container-inbound-engine.js?v=20261106-qa-2"></script>
+    <script src="./inbound-update-engine.js?v=20261106-qa-2"></script>
+    <script src="./mapping-engine.js?v=20261106-qa-2"></script>
+    <script src="./inbound-table-engine.js?v=20261106-qa-2"></script>
+    <script src="./table-controls.js?v=20261106-qa-2"></script>
+    <script src="./inventory-dashboard-engine.js?v=20261106-search-1"></script>
+    <script src="./inventory-dashboard-compat.js?v=20261106-qa-2"></script>
+    <script src="./help-bot-search.js?v=20261106-qa-2"></script>
+    <script src="./workspace-storage.js?v=20261106-qa-2"></script>
+    <script src="./data-basis-engine.js?v=20261106-qa-2"></script>
+    <script src="./data-basis-snapshot.js?v=20261106-qa-2"></script>
+    <script src="./expiry-lot-engine.js?v=20261106-qa-2"></script>
+    <script src="./smartstore-inventory-engine.js?v=20261106-qa-2"></script>
+    <script src="./product-detail-engine.js?v=20261106-qa-2"></script>
+    <script src="./file-drop-engine.js?v=20261106-qa-2"></script>
+    <script src="./stock-row-visibility.js?v=20261106-qa-2"></script>
+    <script src="./history-panel-placement.js?v=20261106-qa-2"></script>
+    <script src="./inbound-coordination-engine.js?v=20261106-qa-2"></script>
+    <script src="./inbound-coordination-ui.js?v=20261106-qa-2"></script>
+    <script src="./ops-dashboard-engine.js?v=20261106-qa-2"></script>
+    <script src="./ops-dashboard-ui.js?v=20261106-qa-2"></script>
+    <script>
+(function(){
+  function initResizableColumns(root){
+    (root||document).querySelectorAll("table.resizable-cols").forEach(function(table){
+      if(table.dataset.resizeBound) return;
+      table.dataset.resizeBound="1";
+      var ths=table.querySelectorAll("thead th");
+      ths.forEach(function(th){
+        if(th.querySelector(".col-resizer")) return;
+        var h=document.createElement("span");
+        h.className="col-resizer";
+        h.title="Resize column";
+        th.appendChild(h);
+        var startX, startW;
+        h.addEventListener("mousedown", function(e){
+          e.preventDefault(); e.stopPropagation();
+          startX=e.pageX; startW=th.offsetWidth;
+          function mv(ev){
+            var w=Math.max(56, startW+(ev.pageX-startX));
+            th.style.width=w+"px";
+            th.style.minWidth=w+"px";
+          }
+          function up(){
+            document.removeEventListener("mousemove", mv);
+            document.removeEventListener("mouseup", up);
+          }
+          document.addEventListener("mousemove", mv);
+          document.addEventListener("mouseup", up);
+        });
+      });
+    });
+  }
+  window.initResizableColumns=initResizableColumns;
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded", function(){ initResizableColumns(); });
+  else setTimeout(function(){ initResizableColumns(); }, 0);
+  setInterval(function(){ initResizableColumns(); }, 2000);
+})();
+</script>
+<script src="./app.js?v=20261106-click-1"></script>
+    <script src="./inventory-tools-ui.js?v=20261106-qa-2"></script>
+    <script src="./share-link.js?v=20261106-qa-2"></script>
+
+    <div id="ops-product-modal" class="ops-modal" hidden>
+      <div class="ops-modal-backdrop" data-ops-modal-close></div>
+      <div class="ops-modal-card" role="dialog" aria-modal="true" aria-labelledby="ops-modal-title">
+        <button type="button" class="ops-modal-x" data-ops-modal-close aria-label="Close">×</button>
+        <div class="ops-modal-top">
+          <div class="ops-modal-thumb" id="ops-modal-thumb" aria-hidden="true">📦</div>
+          <div>
+            <h3 id="ops-modal-title">Product Name</h3>
+            <p class="ops-modal-meta" id="ops-modal-meta">SKU · Barcode</p>
+          </div>
+        </div>
+        <div class="ops-modal-stats" id="ops-modal-stats"></div>
+        <div class="ops-modal-tabs">
+          <button type="button" class="ops-modal-tab is-active" data-ops-modal-tab="slips">Pending Shipments (ECOUNT and Courier)</button>
+          <button type="button" class="ops-modal-tab" data-ops-modal-tab="stock">Inventory Details</button>
+          <button type="button" class="ops-modal-tab" data-ops-modal-tab="inbound">Expected Receipts</button>
+        </div>
+        <div class="ops-modal-panel" data-ops-modal-panel="slips">
+          <div class="inventory-table-wrap h-scroll-wrap">
+            <table>
+              <thead>
+                <tr><th>ECOUNT Account</th><th>Sales Slip No.</th><th>Supplier Name</th><th>Shipped Qty.</th></tr>
+              </thead>
+              <tbody id="ops-modal-slips-body"></tbody>
+              <tfoot>
+                <tr><td colspan="3"><strong>Total Pending Shipments</strong></td><td id="ops-modal-slips-sum"><strong>0</strong></td></tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+        <div class="ops-modal-panel" data-ops-modal-panel="stock" hidden>
+          <div class="inventory-table-wrap h-scroll-wrap">
+            <table>
+              <thead><tr><th>Warehouse Zone</th><th>Stock</th></tr></thead>
+              <tbody id="ops-modal-stock-body"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="ops-modal-panel" data-ops-modal-panel="inbound" hidden>
+          <div class="inventory-table-wrap h-scroll-wrap">
+            <table>
+              <thead><tr><th>Expected Inbound Date</th><th>Qty.</th><th>Source</th><th>Notes</th></tr></thead>
+              <tbody id="ops-modal-inbound-body"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="ops-modal-foot">
+          <button type="button" class="secondary dash-btn-center" data-ops-modal-close>Close</button>
+        </div>
+      </div>
+    </div>
+    <style>
+      .ops-modal { position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 24px; }
+      .ops-modal[hidden] { display: none !important; }
+      .ops-modal-backdrop { position: absolute; inset: 0; background: rgba(15,23,42,.45); }
+      .ops-modal-card { position: relative; width: min(720px, 100%); max-height: min(88vh, 900px); overflow: auto; background: #fff; border-radius: 16px; box-shadow: 0 20px 50px rgba(15,23,42,.25); padding: 22px 22px 16px; }
+      .ops-modal-x { position: absolute; top: 12px; right: 14px; border: 0; background: transparent; font-size: 22px; cursor: pointer; color: #64748b; line-height: 1; }
+      .ops-modal-top { display: flex; gap: 14px; align-items: center; margin-bottom: 14px; padding-right: 28px; }
+      .ops-modal-thumb { width: 72px; height: 72px; border-radius: 12px; background: linear-gradient(145deg,#fff7ed,#ffedd5); display:flex; align-items:center; justify-content:center; font-size: 32px; border: 1px solid #fed7aa; }
+      .ops-modal-top h3 { margin: 0 0 4px; font-size: 18px; }
+      .ops-modal-meta { margin: 0; color: #64748b; font-size: 12.5px; }
+      .ops-modal-stats { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 8px; margin-bottom: 14px; }
+      .ops-modal-stat { background: #f8fafc; border: 1px solid #eef2f7; border-radius: 10px; padding: 10px 12px; }
+      .ops-modal-stat span { display:block; font-size: 11px; color: #64748b; font-weight: 600; margin-bottom: 4px; }
+      .ops-modal-stat b { font-size: 18px; color: #0f172a; }
+      .ops-modal-stat.risk { background: #fff1f2; border-color: #fecdd3; }
+      .ops-modal-stat.risk b { color: #c73c35; }
+      .ops-modal-tabs { display: flex; gap: 6px; flex-wrap: wrap; border-bottom: 1px solid #eef2f7; margin-bottom: 12px; padding-bottom: 8px; }
+      .ops-modal-tab { border: 0; background: transparent; padding: 8px 12px; border-radius: 8px; font: inherit; font-size: 12.5px; font-weight: 700; color: #64748b; cursor: pointer; }
+      .ops-modal-tab.is-active { background: #fff7ed; color: #c65b00; }
+      .ops-modal-foot { display: flex; justify-content: flex-end; margin-top: 14px; }
+      .ops-product-link { border: 0; background: none; color: #2563eb; font: inherit; font-weight: 700; cursor: pointer; padding: 0; text-align: left; }
+      .ops-product-link:hover { text-decoration: underline; }
+      @media (max-width: 700px) {
+        .ops-modal-stats { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      }
+    </style>
+
+<style>
+.row-discontinue-btn{display:inline-flex;align-items:center;justify-content:center;padding:6px 10px;border-radius:8px;border:1px solid #fdba74;background:#fff7ed;color:#c2410c;font:inherit;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
+.row-discontinue-btn.active{background:#fee2e2;border-color:#fca5a5;color:#b91c1c}
+.soldout-disc-cell{text-align:center}
+</style>
+<script src="./responsive-ui.js?v=20261105-1"></script>
+</body>
+</html>
